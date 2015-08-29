@@ -16,4 +16,16 @@ public class Grocery {
     public String getDepartment() {
         return department;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == null || !(other instanceof Grocery))
+            return false;
+
+        if (other == this)
+            return true;
+
+        Grocery grocery = (Grocery) other;
+        return grocery.getName().equals(this.name) && grocery.getDepartment().equals(this.department);
+    }
 }
