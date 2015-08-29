@@ -1,10 +1,12 @@
-package hnzevn.android.grocerylist;
+package hnzevn.android.grocerylist.fragments;
 
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import hnzevn.android.grocerylist.R;
 
 public class ItemListFragment extends Fragment {
 

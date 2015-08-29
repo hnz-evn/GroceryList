@@ -1,11 +1,12 @@
-package hnzevn.android.grocerylist;
+package hnzevn.android.grocerylist.activities;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+
+import hnzevn.android.grocerylist.R;
+import hnzevn.android.grocerylist.fragments.ItemListFragment;
 
 
 public class MainActivity extends Activity {
