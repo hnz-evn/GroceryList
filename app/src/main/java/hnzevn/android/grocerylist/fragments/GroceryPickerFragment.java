@@ -16,9 +16,9 @@ import hnzevn.android.grocerylist.data.DataAccessStub;
 import hnzevn.android.grocerylist.interfaces.DataAccess;
 import hnzevn.android.grocerylist.models.Grocery;
 
-public class ItemListFragment extends ListFragment {
+public class GroceryPickerFragment extends ListFragment {
 
-    private static final String TAG = "ItemListFragment";
+    private static final String TAG = "GroceryPickerFragment";
     private DataAccess db;
     private ArrayList<Grocery> groceryList;
 
@@ -51,7 +51,7 @@ public class ItemListFragment extends ListFragment {
             if (convertView == null) {
                 convertView  = getActivity()
                         .getLayoutInflater()
-                        .inflate(R.layout.list_item_grocery, null);
+                        .inflate(R.layout.list_item_grocery_picker, null);
             }
 
             Grocery grocery = getItem(position);

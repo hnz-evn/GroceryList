@@ -6,7 +6,7 @@ import android.app.FragmentManager;
 import android.os.Bundle;
 
 import hnzevn.android.grocerylist.R;
-import hnzevn.android.grocerylist.fragments.ItemListFragment;
+import hnzevn.android.grocerylist.fragments.GroceryPickerFragment;
 
 
 public class MainActivity extends Activity {
@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
         Fragment fragment = fragmentManager.findFragmentById(R.id.fragment_container);
 
         if (fragment == null) {
-            fragment = new ItemListFragment();
+            fragment = new GroceryPickerFragment();
             fragmentManager.beginTransaction()
                     .add(R.id.fragment_container, fragment)
                     .commit();
