@@ -34,8 +34,15 @@ public class DataAccessStub implements DataAccess {
     }
 
     private void initDB() {
-        groceryList.add(new Grocery("Apple", "Produce"));
+        groceryList.add(new Grocery("Apples", "Produce"));
+        groceryList.add(new Grocery("Bananas", "Produce"));
+        groceryList.add(new Grocery("Carrots", "Produce"));
         groceryList.add(new Grocery("Eggs", "Dairy"));
+        groceryList.add(new Grocery("Milk", "Dairy"));
+        groceryList.add(new Grocery("Sour Cream", "Dairy"));
         groceryList.add(new Grocery("Pizza", "Frozen"));
+        groceryList.add(new Grocery("Green Beans", "Frozen"));
+        groceryList.add(new Grocery("Bread", "Bakery"));
+        groceryList.add(new Grocery("Bagels", "Bakery"));
     }
 }
