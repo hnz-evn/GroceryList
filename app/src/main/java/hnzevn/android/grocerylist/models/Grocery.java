@@ -3,10 +3,12 @@ package hnzevn.android.grocerylist.models;
 public class Grocery {
     private String name;
     private String department;
+    private boolean willBuy;
 
     public Grocery(String name, String department) {
         this.name = name;
         this.department = department;
+        this.willBuy = false;
     }
 
     public String getName() {
@@ -16,6 +18,15 @@ public class Grocery {
     public String getDepartment() {
         return department;
     }
+
+    public boolean willBuy() {
+        return willBuy;
+    }
+
+    public void setToBuy(boolean willBuy) {
+        this.willBuy = willBuy;
+    }
+
 
     @Override
     public boolean equals(Object other) {
