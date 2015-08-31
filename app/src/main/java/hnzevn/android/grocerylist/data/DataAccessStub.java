@@ -1,6 +1,7 @@
 package hnzevn.android.grocerylist.data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import hnzevn.android.grocerylist.interfaces.DataAccess;
 import hnzevn.android.grocerylist.models.Grocery;
@@ -20,6 +21,30 @@ public class DataAccessStub implements DataAccess {
 
     public ArrayList<Grocery> getGroceries() {
         return new ArrayList<>(groceryList);
+    }
+
+    public HashMap<String, ArrayList<Grocery>> getGroceriesByDepartment() {
+        HashMap<String, ArrayList<Grocery>> groceriesByDepartment = new HashMap<>();
+
+        for (Grocery grocery : groceryList) {
+            ArrayList<Grocery> departmentGroceries;
+            String department = grocery.getDepartment();
+
+            if (groceriesByDepartment.containsKey(department)) {
+                departmentGroceries = groceriesByDepartment.get(department);
+
+                if (!departmentGroceries.contains(grocery)) {
+                    departmentGroceries.add(grocery);
+                }
+            }
+            else {
+                departmentGroceries = new ArrayList<>();
+                departmentGroceries.add(grocery);
+                groceriesByDepartment.put(department, departmentGroceries);
+            }
+        }
+
+        return groceriesByDepartment;
     }
 
     public void addGrocery(Grocery grocery) {

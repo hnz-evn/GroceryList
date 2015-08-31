@@ -39,7 +39,6 @@ public class GroceryPickerFragment extends ListFragment {
         Grocery grocery = ((GroceryAdapter) getListAdapter()).getItem(position);
         grocery.setToBuy(!grocery.willBuy());
         ((GroceryAdapter) getListAdapter()).notifyDataSetChanged();
-
     }
 
     private class GroceryAdapter extends ArrayAdapter<Grocery> {

@@ -10,11 +10,46 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 import java.util.TreeSet;
 
 import hnzevn.android.grocerylist.R;
+import hnzevn.android.grocerylist.data.DataAccessStub;
+import hnzevn.android.grocerylist.interfaces.DataAccess;
+import hnzevn.android.grocerylist.models.Grocery;
 
 public class GroceryListFragment extends ListFragment {
+
+    private static final String TAG = "GroceryListFragment";
+    private DataAccess db;
+    private HashMap<String, ArrayList<Grocery>> groceryList;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        GroceryListAdapter adapter = new GroceryListAdapter(this.getActivity());
+
+        db = new DataAccessStub();
+        db.open("GroceryList");
+        groceryList = db.getGroceriesByDepartment();
+
+        Set<String> departments = groceryList.keySet();
+        ArrayList<Grocery> departmentGroceries;
+
+        for (String department : departments) {
+            adapter.addHeaderItem(department);
+
+            departmentGroceries = groceryList.get(department);
+
+            for (Grocery grocery : departmentGroceries) {
+                adapter.addGroceryItem(grocery.getName());
+            }
+        }
+
+        setListAdapter(adapter);
+    }
 
     class GroceryListAdapter extends BaseAdapter {
         private static final int TYPE_ITEM = 0;
@@ -51,6 +86,11 @@ public class GroceryListFragment extends ListFragment {
         }
 
         @Override
+        public int getViewTypeCount() {
+            return 2;
+        }
+
+        @Override
         public String getItem(int position) {
             return listData.get(position);
         }
@@ -62,25 +102,36 @@ public class GroceryListFragment extends ListFragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            TextView textView = null;
+            ViewHolder holder = null;
             int rowType = getItemViewType(position);
 
             if (convertView == null) {
+                holder = new ViewHolder();
+
                 switch(rowType) {
                     case TYPE_ITEM:
                         convertView = inflater.inflate(R.layout.list_item_grocery, null);
-                        textView = (TextView) convertView.findViewById(R.id.grocery_name);
+                        holder.textView = (TextView) convertView.findViewById(R.id.grocery_name);
                         break;
                     case TYPE_HEADER:
                         convertView = inflater.inflate(R.layout.list_item_grocery_header, null);
-                        textView = (TextView) convertView.findViewById(R.id.grocery_department);
+                        holder.textView = (TextView) convertView.findViewById(R.id.grocery_department);
                         break;
                 }
+
+                convertView.setTag(holder);
+            }
+            else {
+                holder = (ViewHolder) convertView.getTag();
             }
 
-            textView.setText(listData.get(position));
+            holder.textView.setText(listData.get(position));
 
             return convertView;
         }
+    }
+
+    public static class ViewHolder {
+        public TextView textView;
     }
 }
