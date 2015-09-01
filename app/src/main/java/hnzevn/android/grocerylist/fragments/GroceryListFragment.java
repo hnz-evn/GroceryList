@@ -25,7 +25,7 @@ public class GroceryListFragment extends ListFragment {
 
         GroceryListAdapter adapter = new GroceryListAdapter(this.getActivity());
 
-        db = new DataAccessStub();
+        db = DataAccessStub.getInstance();
         db.open("GroceryList");
         groceryList = db.getGroceriesByDepartment();
 

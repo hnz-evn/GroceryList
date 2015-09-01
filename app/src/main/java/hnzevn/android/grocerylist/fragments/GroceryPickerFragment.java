@@ -43,7 +43,7 @@ public class GroceryPickerFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        db = new DataAccessStub();
+        db = DataAccessStub.getInstance();
         db.open("GroceryList");
         groceryList = db.getGroceries();
 
