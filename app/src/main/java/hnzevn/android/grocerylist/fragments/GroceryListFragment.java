@@ -22,6 +22,7 @@ import hnzevn.android.grocerylist.models.Grocery;
 public class GroceryListFragment extends ListFragment {
 
     private static final String TAG = "GroceryListFragment";
+
     private DataAccess db;
     private HashMap<String, ArrayList<Grocery>> groceryList;
 

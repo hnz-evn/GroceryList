@@ -6,10 +6,12 @@ import android.app.FragmentManager;
 import android.os.Bundle;
 
 import hnzevn.android.grocerylist.R;
+import hnzevn.android.grocerylist.fragments.GroceryListFragment;
 import hnzevn.android.grocerylist.fragments.GroceryPickerFragment;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity
+        implements GroceryPickerFragment.OnActionButtonListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,5 +27,15 @@ public class MainActivity extends Activity {
                     .add(R.id.fragment_container, fragment)
                     .commit();
         }
+    }
+
+    public void onActionButtonClick() {
+        FragmentManager fragmentManager = getFragmentManager();
+        Fragment fragment = new GroceryListFragment();
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 }

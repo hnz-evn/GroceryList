@@ -1,5 +1,6 @@
 package hnzevn.android.grocerylist.fragments;
 
+import android.app.Activity;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,8 +23,21 @@ import hnzevn.android.grocerylist.models.Grocery;
 public class GroceryPickerFragment extends ListFragment {
 
     private static final String TAG = "GroceryPickerFragment";
+
+    private OnActionButtonListener callback;
     private DataAccess db;
     private ArrayList<Grocery> groceryList;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        try {
+            callback = (OnActionButtonListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnActionButtonListener");
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,6 +57,13 @@ public class GroceryPickerFragment extends ListFragment {
 
         ListView listView = (ListView) view.findViewById(android.R.id.list);
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callback.onActionButtonClick();
+            }
+        });
         fab.attachToListView(listView);
 
         return view;
@@ -77,5 +98,9 @@ public class GroceryPickerFragment extends ListFragment {
 
             return convertView;
         }
+    }
+
+    public interface OnActionButtonListener {
+        void onActionButtonClick();
     }
 }
