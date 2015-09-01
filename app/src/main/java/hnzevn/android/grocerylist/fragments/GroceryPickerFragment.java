@@ -10,6 +10,8 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.melnykov.fab.FloatingActionButton;
+
 import java.util.ArrayList;
 
 import hnzevn.android.grocerylist.R;
@@ -37,7 +39,13 @@ public class GroceryPickerFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_grocery_picker, container, false);
+        View view = inflater.inflate(R.layout.fragment_grocery_picker, container, false);
+
+        ListView listView = (ListView) view.findViewById(android.R.id.list);
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.attachToListView(listView);
+
+        return view;
     }
 
     @Override
