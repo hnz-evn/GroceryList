@@ -3,16 +3,21 @@ package hnzevn.android.grocerylist.fragments;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.melnykov.fab.FloatingActionButton;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import hnzevn.android.grocerylist.R;
@@ -55,9 +60,27 @@ public class GroceryPickerFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_grocery_picker, container, false);
 
-        ListView listView = (ListView) view.findViewById(android.R.id.list);
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        final EditText filter = (EditText) view.findViewById(R.id.filter);
+        filter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = filter.getText().toString();
+                GroceryAdapter adapter = (GroceryAdapter) getListAdapter();
+                adapter.filter(text);
+            }
 
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+        });
+
+        filter.requestFocus();
+
+        ListView listView = (ListView) view.findViewById(android.R.id.list);
+
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,8 +100,14 @@ public class GroceryPickerFragment extends ListFragment {
     }
 
     private class GroceryAdapter extends ArrayAdapter<Grocery> {
+
+        private ArrayList<Grocery> groceries;
+        private ArrayList<Grocery> allGroceries;
+
         public GroceryAdapter(ArrayList<Grocery> groceries) {
             super(getActivity(), 0, groceries);
+            this.groceries = groceries;
+            this.allGroceries = new ArrayList<>(groceries);
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -88,7 +117,7 @@ public class GroceryPickerFragment extends ListFragment {
                         .inflate(R.layout.list_item_grocery_picker, null);
             }
 
-            Grocery grocery = getItem(position);
+            Grocery grocery = groceries.get(position);
 
             TextView nameTextView = (TextView) convertView.findViewById(R.id.grocery_list_item_name);
             nameTextView.setText(grocery.getName());
@@ -97,6 +126,22 @@ public class GroceryPickerFragment extends ListFragment {
             solvedCheckBox.setChecked(grocery.willBuy());
 
             return convertView;
+        }
+
+        public void filter(String query) {
+            String groceryName;
+
+            query = query.toLowerCase();
+            groceries.clear();
+
+            for (Grocery grocery : allGroceries) {
+                groceryName = grocery.getName().toLowerCase();
+                if (groceryName.contains(query)) {
+                    groceries.add(grocery);
+                }
+            }
+
+            notifyDataSetChanged();
         }
     }
 
