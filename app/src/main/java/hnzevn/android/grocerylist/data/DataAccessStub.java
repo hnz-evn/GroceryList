@@ -12,7 +12,7 @@ public class DataAccessStub implements DataAccess {
     private String dbName;
     private ArrayList<Grocery> groceryList;
 
-    public DataAccessStub() {
+    private DataAccessStub() {
         groceryList = new ArrayList<>();
     }
 
