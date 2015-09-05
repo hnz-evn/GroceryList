@@ -75,13 +75,27 @@ public class DataAccessStub implements DataAccess {
             groceryList.add(new Grocery("Apples", "Produce"));
             groceryList.add(new Grocery("Bananas", "Produce"));
             groceryList.add(new Grocery("Carrots", "Produce"));
+            groceryList.add(new Grocery("Lettuce", "Produce"));
+            groceryList.add(new Grocery("Cucumber", "Produce"));
+            groceryList.add(new Grocery("Red Onion", "Produce"));
+            groceryList.add(new Grocery("Bacon", "Meats"));
             groceryList.add(new Grocery("Eggs", "Dairy"));
             groceryList.add(new Grocery("Milk", "Dairy"));
             groceryList.add(new Grocery("Sour Cream", "Dairy"));
+            groceryList.add(new Grocery("Cheddar Cheese", "Dairy"));
+            groceryList.add(new Grocery("Parmesan Cheese", "Dairy"));
+            groceryList.add(new Grocery("Greek Yogurt", "Dairy"));
             groceryList.add(new Grocery("Pizza", "Frozen"));
             groceryList.add(new Grocery("Green Beans", "Frozen"));
+            groceryList.add(new Grocery("Frozen Fruit", "Frozen"));
+            groceryList.add(new Grocery("Stuffed Chicken", "Frozen"));
+            groceryList.add(new Grocery("Rice", "Dried Goods"));
+            groceryList.add(new Grocery("Clif Bars", "Dried Goods"));
+            groceryList.add(new Grocery("Fruit Bars", "Dried Goods"));
             groceryList.add(new Grocery("Bread", "Bakery"));
             groceryList.add(new Grocery("Bagels", "Bakery"));
+            groceryList.add(new Grocery("Hand Soap", "Miscellaneous"));
+            groceryList.add(new Grocery("Garbage Bags", "Miscellaneous"));
         }
     }
 }
